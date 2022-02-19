@@ -70,10 +70,6 @@ def scale_features(df: pd.DataFrame, scaler: StandardScaler):
     return pd.DataFrame(scaler.transform(df), columns=df.columns)
 
 
-@hydra.main(
-    config_path="../config",
-    config_name="main",
-)
 def process_data(config: DictConfig, logger: DAGsHubLogger):
 
     df = load_data(config.raw_data.path)

@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from dagshub.logger import DAGsHubLogger
-from loguru import logger
 from omegaconf import DictConfig, OmegaConf
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
@@ -98,21 +97,14 @@ def plot_clusters(
     plt.savefig(image_path)
 
 
-@hydra.main(
-    config_path="../config",
-    config_name="main",
-)
 def segment(config: DictConfig, logger: DAGsHubLogger) -> None:
 
     data = pd.read_csv(config.intermediate.path)
     pca = get_pca_model(data)
     pca_df = reduce_dimension(data, pca)
     projections = get_3d_projection(pca_df)
-    k_best = get_best_k_cluster(
-        pca_df,
-        config.image.kmeans,
-    )
-    model = get_clusters_model(pca_df, k_best)
+    k_best = get_best_k_cluster(pca_df, config.image.kmeans, logger)
+    model = get_clusters_model(pca_df, k_best, logger)
     preds = predict(model, pca_df)
     data = insert_clusters_to_df(data, preds)
     plot_clusters(
