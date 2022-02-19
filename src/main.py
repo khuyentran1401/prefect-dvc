@@ -1,5 +1,5 @@
+import dagshub
 import hydra
-import wandb
 from omegaconf import DictConfig, OmegaConf
 
 from process_data import process_data
@@ -12,24 +12,20 @@ from segment import segment
 )
 def main(config: DictConfig):
 
-    # wandb.init(
-    #     project="customer_segmentation",
-    #     config=OmegaConf.to_object(config),
-    #     reinit=True,
-    # )
+    with dagshub.dagshub_logger() as logger:
 
-    if config.flow == "all":
-        process_data(config)
-        segment(config)
+        if config.flow == "all":
+            process_data(config, logger)
+            segment(config, logger)
 
-    elif config.flow == "process_data":
-        process_data(config)
+        elif config.flow == "process_data":
+            process_data(config, logger)
 
-    elif config.flow == "segment":
-        segment(config)
+        elif config.flow == "segment":
+            segment(config, logger)
 
-    else:
-        print("flow not found")
+        else:
+            print("flow not found")
 
 
 if __name__ == "__main__":

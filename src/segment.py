@@ -1,11 +1,13 @@
 from datetime import timedelta
 from typing import Tuple
 
+import dagshub
 import hydra
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import wandb
+from dagshub.logger import DAGsHubLogger
+from loguru import logger
 from omegaconf import DictConfig, OmegaConf
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
@@ -28,7 +30,9 @@ def get_3d_projection(pca_df: pd.DataFrame) -> dict:
     return {"x": pca_df["col1"], "y": pca_df["col2"], "z": pca_df["col3"]}
 
 
-def get_best_k_cluster(pca_df: pd.DataFrame, image_path: str) -> pd.DataFrame:
+def get_best_k_cluster(
+    pca_df: pd.DataFrame, image_path: str, logger: DAGsHubLogger
+) -> pd.DataFrame:
 
     fig = plt.figure(figsize=(10, 8))
     fig.add_subplot(111)
@@ -41,20 +45,23 @@ def get_best_k_cluster(pca_df: pd.DataFrame, image_path: str) -> pd.DataFrame:
     k_best = elbow.elbow_value_
 
     # Log
-    # wandb.log(
-    #     {
-    #         "elbow": wandb.Image(image_path),
-    #         "k_best": k_best,
-    #         "score_best": elbow.elbow_score_,
-    #     }
-    # )
+    logger.log_metrics(
+        {
+            "k_best": k_best,
+            "score_best": elbow.elbow_score_,
+        }
+    )
     return k_best
 
 
 def get_clusters_model(
-    pca_df: pd.DataFrame, k: int
+    pca_df: pd.DataFrame, k: int, logger: DAGsHubLogger
 ) -> Tuple[pd.DataFrame, pd.DataFrame]:
     model = KMeans(n_clusters=k)
+
+    # log the model's parameters
+    logger.log_hyperparams(model_class=type(model).__name__)
+    logger.log_hyperparams({"model": model.get_params()})
 
     # Fit model
     return model.fit(pca_df)
@@ -90,15 +97,12 @@ def plot_clusters(
 
     plt.savefig(image_path)
 
-    # Log plot
-    # wandb.log({"clusters": wandb.Image(image_path)})
-
 
 @hydra.main(
     config_path="../config",
     config_name="main",
 )
-def segment(config: DictConfig) -> None:
+def segment(config: DictConfig, logger: DAGsHubLogger) -> None:
 
     data = pd.read_csv(config.intermediate.path)
     pca = get_pca_model(data)

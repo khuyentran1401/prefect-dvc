@@ -1,6 +1,6 @@
 import hydra
 import pandas as pd
-import wandb
+from dagshub.logger import DAGsHubLogger
 from omegaconf import DictConfig
 from sklearn.preprocessing import StandardScaler
 
@@ -74,7 +74,7 @@ def scale_features(df: pd.DataFrame, scaler: StandardScaler):
     config_path="../config",
     config_name="main",
 )
-def process_data(config: DictConfig):
+def process_data(config: DictConfig, logger: DAGsHubLogger):
 
     df = load_data(config.raw_data.path)
     df = drop_na(df)
