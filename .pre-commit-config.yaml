@@ -1,23 +1,39 @@
 repos:
--   repo: https://github.com/ambv/black
-    rev: 20.8b1
-    hooks:
-    - id: black
--   repo: https://gitlab.com/pycqa/flake8
-    rev: 3.8.4
-    hooks:
-    - id: flake8
--   repo: https://github.com/timothycrosley/isort
-    rev: 5.7.0
-    hooks:
-    -   id: isort
--   repo: https://github.com/kynan/nbstripout
-    rev: 0.5.0
-    hooks:
-    -   id: nbstripout
+- repo: https://github.com/ambv/black
+  rev: 22.1.0
+  hooks:
+  - id: black
+- repo: https://gitlab.com/pycqa/flake8
+  rev: 3.9.2
+  hooks:
+  - id: flake8
+- repo: https://github.com/timothycrosley/isort
+  rev: 5.10.1
+  hooks:
+  - id: isort
+- repo: https://github.com/kynan/nbstripout
+  rev: 0.5.0
+  hooks:
+  - id: nbstripout
 # -   repo: https://github.com/pre-commit/mirrors-mypy
 #     rev: v0.782
 #     hooks:
 #     -   id: mypy
 #         args: [--ignore-missing-imports]
 
+- repo: https://github.com/iterative/dvc
+  rev: 2.9.5
+  hooks:
+  - id: dvc-pre-commit
+    language_version: python3
+    stages:
+    - commit
+  - id: dvc-pre-push
+    language_version: python3
+    stages:
+    - push
+  - id: dvc-post-checkout
+    language_version: python3
+    stages:
+    - post-checkout
+    always_run: true
