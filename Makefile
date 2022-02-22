@@ -30,7 +30,9 @@ clean:
 
 dvc_add:
 	dvc add image
-	dvc add data 
+	dvc add data/raw
+	dvc add data/intermediate
+	dvc add data/final
 	dvc add model
 	dvc push 
 
