@@ -1,3 +1,4 @@
+
 hydra:  
   output_subdir: null  
   run:  
@@ -15,22 +16,10 @@ intermediate:
   name: scale_features.csv
   path: ${intermediate.dir}/${intermediate.name}
 
-segmented:
-  dir: data/final
-  name: segmented.csv
-  path: ${segmented.dir}/${segmented.name}
-  deserialize_kwargs:
-    index: false
-
 flow: all 
-
-pca:
-  n_components: 3
-  columns:
-  - col1
-  - col2
-  - col3
 
 image:
   kmeans: image/elbow.png
   clusters: image/cluster.png
+
+logger: mlflow

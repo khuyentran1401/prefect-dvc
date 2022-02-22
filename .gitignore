@@ -14,3 +14,5 @@ image
 wandb
 multirun
 main.log
+mlruns
+artifacts

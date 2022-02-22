@@ -1,7 +1,9 @@
 import dagshub
 import hydra
-from omegaconf import DictConfig, OmegaConf
+import mlflow
+from omegaconf import DictConfig
 
+from logger import BaseLogger
 from process_data import process_data
 from segment import segment
 
@@ -12,10 +14,18 @@ from segment import segment
 )
 def main(config: DictConfig):
 
-    with dagshub.dagshub_logger() as logger:
+    logger = BaseLogger(config.logger)
+
+    mlflow.set_tracking_uri(
+        "https://dagshub.com/khuyentran1401/customer_segmentation_demo.mlflow"
+    )
+    with mlflow.start_run():
+
+        logger.log_params(dict(config.process))
+        logger.log_params({"num_columns": len(config.process.keep_columns)})
 
         if config.flow == "all":
-            process_data(config, logger)
+            process_data(config)
             segment(config, logger)
 
         elif config.flow == "process_data":

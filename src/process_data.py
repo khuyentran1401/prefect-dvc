@@ -1,4 +1,3 @@
-import hydra
 import pandas as pd
 from dagshub.logger import DAGsHubLogger
 from omegaconf import DictConfig
@@ -50,10 +49,10 @@ def drop_outliers(df: pd.DataFrame, column_threshold: dict):
 
 
 def drop_columns_and_rows(
-    df: pd.DataFrame, columns: DictConfig
+    df: pd.DataFrame, keep_columns: dict, remove_outliers_threshold: dict
 ) -> pd.DataFrame:
-    df = df.pipe(drop_features, keep_columns=columns.keep).pipe(
-        drop_outliers, column_threshold=columns.remove_outliers_threshold
+    df = df.pipe(drop_features, keep_columns=keep_columns).pipe(
+        drop_outliers, column_threshold=remove_outliers_threshold
     )
 
     return df
@@ -70,7 +69,7 @@ def scale_features(df: pd.DataFrame, scaler: StandardScaler):
     return pd.DataFrame(scaler.transform(df), columns=df.columns)
 
 
-def process_data(config: DictConfig, logger: DAGsHubLogger):
+def process_data(config: DictConfig):
 
     df = load_data(config.raw_data.path)
     df = drop_na(df)
@@ -78,13 +77,13 @@ def process_data(config: DictConfig, logger: DAGsHubLogger):
     df = get_total_children(df)
     df = get_total_purchases(df)
     df = get_enrollment_years(df)
-    df = get_family_size(df, config.process.encode.family_size)
-    df = drop_columns_and_rows(df, config.process.columns)
+    df = get_family_size(df, config.process.family_size)
+    df = drop_columns_and_rows(
+        df,
+        config.process.keep_columns,
+        config.process.remove_outliers_threshold,
+    )
     scaler = get_scaler(df)
     df = scale_features(df, scaler)
 
     # wandb.config.update({"num_cols": len(config.process.columns.keep)})
-
-
-if __name__ == "__main__":
-    process_data()

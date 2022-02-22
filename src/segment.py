@@ -1,16 +1,15 @@
 from datetime import timedelta
 from typing import Tuple
 
-import dagshub
-import hydra
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from dagshub.logger import DAGsHubLogger
-from omegaconf import DictConfig, OmegaConf
+from omegaconf import DictConfig
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 from yellowbrick.cluster import KElbowVisualizer
+
+from logger import BaseLogger
 
 
 def get_pca_model(data: pd.DataFrame) -> PCA:
@@ -30,7 +29,7 @@ def get_3d_projection(pca_df: pd.DataFrame) -> dict:
 
 
 def get_best_k_cluster(
-    pca_df: pd.DataFrame, image_path: str, logger: DAGsHubLogger
+    pca_df: pd.DataFrame, image_path: str, logger: BaseLogger
 ) -> pd.DataFrame:
 
     fig = plt.figure(figsize=(10, 8))
@@ -54,13 +53,13 @@ def get_best_k_cluster(
 
 
 def get_clusters_model(
-    pca_df: pd.DataFrame, k: int, logger: DAGsHubLogger
+    pca_df: pd.DataFrame, k: int, logger: BaseLogger
 ) -> Tuple[pd.DataFrame, pd.DataFrame]:
     model = KMeans(n_clusters=k)
 
-    # log the model's parameters
-    logger.log_hyperparams(model_class=type(model).__name__)
-    logger.log_hyperparams({"model": model.get_params()})
+    # Log model
+    logger.log_params({"model_class": type(model).__name__})
+    logger.log_params({"model": model.get_params()})
 
     # Fit model
     return model.fit(pca_df)
@@ -97,7 +96,7 @@ def plot_clusters(
     plt.savefig(image_path)
 
 
-def segment(config: DictConfig, logger: DAGsHubLogger) -> None:
+def segment(config: DictConfig, logger: BaseLogger) -> None:
 
     data = pd.read_csv(config.intermediate.path)
     pca = get_pca_model(data)
