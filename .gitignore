@@ -16,3 +16,4 @@ main.log
 mlruns
 artifacts
 /image
+/model

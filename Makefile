@@ -27,3 +27,11 @@ test:
 clean: 
 	@echo "Deleting log files..."
 	find . -name "*.log" -type f -not -path "./wandb/*" -delete
+
+add:
+	dvc add image
+	dvc add data 
+	dvc add model
+
+	git add .
+	git status

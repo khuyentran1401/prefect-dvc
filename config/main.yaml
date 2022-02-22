@@ -4,6 +4,8 @@ hydra:
   run:  
     dir: .
 
+flow: all 
+
 raw_data: 
   path: data/raw/marketing_campaign.csv
 
@@ -12,11 +14,12 @@ intermediate:
   name: scale_features.csv
   path: ${intermediate.dir}/${intermediate.name}
 
-flow: all 
-
 image:
   kmeans: image/elbow.png
   clusters: image/cluster.png
+
+model:
+  path: model/cluster.pkl
 
 process:
   keep_columns:

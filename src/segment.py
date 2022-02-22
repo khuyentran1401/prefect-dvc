@@ -1,4 +1,4 @@
-from datetime import timedelta
+import pickle
 from typing import Tuple
 
 import matplotlib.pyplot as plt
@@ -112,3 +112,4 @@ def segment(config: DictConfig, logger: BaseLogger) -> None:
         projections,
         config.image.clusters,
     )
+    pickle.dump(model, open(config.model.path, "wb"))
