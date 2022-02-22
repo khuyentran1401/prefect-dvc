@@ -22,4 +22,3 @@ image:
   kmeans: image/elbow.png
   clusters: image/cluster.png
 
-logger: mlflow

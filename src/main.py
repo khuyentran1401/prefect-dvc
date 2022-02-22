@@ -14,7 +14,7 @@ from segment import segment
 )
 def main(config: DictConfig):
 
-    logger = BaseLogger(config.logger)
+    logger = BaseLogger()
 
     mlflow.set_tracking_uri(
         "https://dagshub.com/khuyentran1401/customer_segmentation_demo.mlflow"
