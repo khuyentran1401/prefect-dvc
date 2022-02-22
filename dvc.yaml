@@ -8,8 +8,6 @@ stages:
     - config/main.yaml
     outs:
     - data/intermediate
-    params:
-    - params.yml
   segment:
     cmd: python src/segment.py
     deps:
@@ -22,8 +20,6 @@ stages:
     - model/cluster.pkl
     metrics:
     - metrics.csv
-    params:
-    - params.yml
   analyze:
     cmd: jupyter notebook
     deps: 
