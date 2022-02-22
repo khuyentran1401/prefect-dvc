@@ -112,7 +112,3 @@ def segment(config: DictConfig, logger: BaseLogger) -> None:
         projections,
         config.image.clusters,
     )
-
-
-if __name__ == "__main__":
-    segment()
