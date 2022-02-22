@@ -14,6 +14,11 @@ intermediate:
   name: scale_features.csv
   path: ${intermediate.dir}/${intermediate.name}
 
+final:
+  dir: data/final
+  name: segmented.csv
+  path: ${final.dir}/${final.name}
+
 image:
   kmeans: image/elbow.png
   clusters: image/cluster.png

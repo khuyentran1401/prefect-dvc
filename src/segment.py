@@ -112,4 +112,5 @@ def segment(config: DictConfig, logger: BaseLogger) -> None:
         projections,
         config.image.clusters,
     )
+    data.to_csv(config.final.path, index=False)
     pickle.dump(model, open(config.model.path, "wb"))
