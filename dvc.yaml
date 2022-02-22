@@ -1,0 +1,31 @@
+stages:
+  process_data:
+    cmd: python src/process_data.py
+    deps:
+    - data/raw/marketing_campaign.csv
+    - src/main.py
+    - src/process_data.py
+    - config/main.yaml
+    outs:
+    - data/intermediate/scale_features.csv
+  segment:
+    cmd: python src/segment.py
+    deps:
+    - data/intermediate/scale_features.csv
+    - src/main.py
+    - src/segment.py
+    - config/main.yaml
+    outs:
+    - data/final/segmented.csv
+    - model/cluster.pkl
+    metrics:
+    - metrics.csv
+    plots:
+    - image/cluster.png
+    - image/elbow.png
+  analyze:
+    cmd: jupyter notebook
+    deps: 
+    - notebook/analyze_data.ipynb
+    - data/final/segmented.csv
+
