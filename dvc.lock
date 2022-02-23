@@ -42,6 +42,10 @@ stages:
       md5: 7eda49cd748b9e0d975cea705d04a319.dir
       size: 609138
       nfiles: 1
+    - path: image
+      md5: d0773db91df2bd2487510c2e88f7ba4a.dir
+      size: 194385
+      nfiles: 2
     - path: metrics.csv
       md5: 9d7de463afa28bb0443c1fe8ebd359df
       size: 102

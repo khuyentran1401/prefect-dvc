@@ -18,6 +18,7 @@ stages:
     outs:
     - data/final
     - model/cluster.pkl
+    - image
     metrics:
     - metrics.csv
   analyze:
