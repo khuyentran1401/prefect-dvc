@@ -10,6 +10,9 @@ stages:
       md5: 1e7fb1474d1f6e038af9517d67cd3157.dir
       size: 222403
       nfiles: 2
+    - path: params.yml
+      md5: f27aca305356fe9f2bd9c4de5d2ea534
+      size: 647
     - path: src/main.py
       md5: 7cec057e22bf666e69145037b85e3412
       size: 925
@@ -31,6 +34,9 @@ stages:
       md5: 9503e800e9c4e01a93c29eafc53f63c4.dir
       size: 621318
       nfiles: 1
+    - path: params.yml
+      md5: f27aca305356fe9f2bd9c4de5d2ea534
+      size: 647
     - path: src/main.py
       md5: 7cec057e22bf666e69145037b85e3412
       size: 925

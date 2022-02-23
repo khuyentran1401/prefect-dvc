@@ -6,6 +6,7 @@ stages:
     - src/main.py
     - src/process_data.py
     - config/main.yaml
+    - params.yml
     outs:
     - data/intermediate
   segment:
@@ -15,6 +16,7 @@ stages:
     - src/main.py
     - src/segment.py
     - config/main.yaml
+    - params.yml
     outs:
     - data/final
     - model/cluster.pkl
