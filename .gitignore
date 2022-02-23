@@ -16,3 +16,4 @@ mlruns
 artifacts
 /image
 /model
+.venv
