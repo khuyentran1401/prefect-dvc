@@ -1,0 +1,60 @@
+schema: '2.0'
+stages:
+  process_data:
+    cmd: python src/process_data.py
+    deps:
+    - path: config/main.yaml
+      md5: c9fd2e04693618588ef82679e00610e1
+      size: 881
+    - path: data/raw
+      md5: 1e7fb1474d1f6e038af9517d67cd3157.dir
+      size: 222403
+      nfiles: 2
+    - path: src/main.py
+      md5: 7cec057e22bf666e69145037b85e3412
+      size: 925
+    - path: src/process_data.py
+      md5: 6aee4ea96237d20e6fd99cee5e7fc3ee
+      size: 2541
+    outs:
+    - path: data/intermediate
+      md5: 9503e800e9c4e01a93c29eafc53f63c4.dir
+      size: 621318
+      nfiles: 1
+  segment:
+    cmd: python src/segment.py
+    deps:
+    - path: config/main.yaml
+      md5: c9fd2e04693618588ef82679e00610e1
+      size: 881
+    - path: data/intermediate
+      md5: 9503e800e9c4e01a93c29eafc53f63c4.dir
+      size: 621318
+      nfiles: 1
+    - path: src/main.py
+      md5: 7cec057e22bf666e69145037b85e3412
+      size: 925
+    - path: src/segment.py
+      md5: 74b55535d61ece2e8e78d3c3781bbdb7
+      size: 2891
+    outs:
+    - path: data/final
+      md5: 7eda49cd748b9e0d975cea705d04a319.dir
+      size: 609138
+      nfiles: 1
+    - path: metrics.csv
+      md5: 9d7de463afa28bb0443c1fe8ebd359df
+      size: 102
+    - path: model/cluster.pkl
+      md5: 8110bf784ef8a9c60790899bf7d8db61
+      size: 9688
+  analyze:
+    cmd: jupyter notebook
+    deps:
+    - path: data/final
+      md5: 7eda49cd748b9e0d975cea705d04a319.dir
+      size: 609138
+      nfiles: 1
+    - path: notebook/analyze_data.ipynb
+      md5: 2009e6273fce432a35f475d3a2458ea1
+      size: 71170

@@ -33,7 +33,7 @@ dvc_add:
 	dvc add data/raw
 	dvc add data/intermediate
 	dvc add data/final
-	dvc add model
+	dvc add model/cluster.pkl
 	dvc push 
 
 git_add:
