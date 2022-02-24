@@ -1,7 +1,8 @@
 family_size: '{''Married'': 2, ''Together'': 2, ''Absurd'': 1, ''Widow'': 1, ''YOLO'':
   1, ''Divorced'': 1, ''Single'': 1, ''Alone'': 1}'
-keep_columns: '[''Income'', ''Recency'', ''NumWebVisitsMonth'', ''Complain'', ''age'',
-  ''total_purchases'', ''enrollment_years'', ''family_size'']'
+keep_columns: '[''Income'', ''Recency'', ''NumWebVisitsMonth'', ''AcceptedCmp3'',
+  ''AcceptedCmp4'', ''AcceptedCmp5'', ''AcceptedCmp1'', ''AcceptedCmp2'', ''Complain'',
+  ''Response'', ''age'', ''total_purchases'', ''enrollment_years'', ''family_size'']'
 model:
   algorithm: auto
   copy_x: true
@@ -13,5 +14,5 @@ model:
   tol: 0.0001
   verbose: 0
 model_class: KMeans
-num_columns: 8
+num_columns: 14
 remove_outliers_threshold: '{''age'': 90, ''Income'': 600000}'
