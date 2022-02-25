@@ -4,6 +4,10 @@ hydra:
   run:  
     dir: .
 
+defaults:
+  - process: process_2
+  - _self_
+
 flow: all 
 
 raw_data: 
@@ -25,35 +29,3 @@ image:
 
 model:
   path: model/cluster.pkl
-
-process:
-  keep_columns:
-  - Income
-  - Recency
-  - NumWebVisitsMonth
-  - AcceptedCmp3
-  - AcceptedCmp4
-  - AcceptedCmp5
-  - AcceptedCmp1
-  - AcceptedCmp2
-  - Complain
-  - Response
-  - age
-  - total_purchases
-  - enrollment_years
-  - family_size
-    
-  remove_outliers_threshold:
-    age: 90
-    Income: 600000
-
-  family_size:
-    Married: 2
-    Together: 2
-    Absurd: 1
-    Widow: 1
-    YOLO: 1
-    Divorced: 1
-    Single: 1
-    Alone: 1
-

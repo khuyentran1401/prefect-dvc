@@ -4,15 +4,15 @@ stages:
     cmd: python src/process_data.py
     deps:
     - path: config/main.yaml
-      md5: 6993d242be3ea5bc7a33230ad5694f6a
-      size: 775
+      md5: a0b5fe7ab2a6e7c44b076219618c074c
+      size: 857
     - path: data/raw
       md5: 10c3f643286f509fa7f6b4675d9efbad.dir
       size: 222379
       nfiles: 1
     - path: params.yml
-      md5: 228a64fb52b2248592d4dcf42268ae1e
-      size: 540
+      md5: f27aca305356fe9f2bd9c4de5d2ea534
+      size: 647
     - path: src/main.py
       md5: 7cec057e22bf666e69145037b85e3412
       size: 925
@@ -21,22 +21,22 @@ stages:
       size: 2541
     outs:
     - path: data/intermediate
-      md5: c453b073acbbd6bed74e63148a7e997b.dir
-      size: 349144
+      md5: 9503e800e9c4e01a93c29eafc53f63c4.dir
+      size: 621318
       nfiles: 1
   segment:
     cmd: python src/segment.py
     deps:
     - path: config/main.yaml
-      md5: 6993d242be3ea5bc7a33230ad5694f6a
-      size: 775
+      md5: a0b5fe7ab2a6e7c44b076219618c074c
+      size: 857
     - path: data/intermediate
-      md5: c453b073acbbd6bed74e63148a7e997b.dir
-      size: 349144
+      md5: 9503e800e9c4e01a93c29eafc53f63c4.dir
+      size: 621318
       nfiles: 1
     - path: params.yml
-      md5: 228a64fb52b2248592d4dcf42268ae1e
-      size: 540
+      md5: f27aca305356fe9f2bd9c4de5d2ea534
+      size: 647
     - path: src/main.py
       md5: 7cec057e22bf666e69145037b85e3412
       size: 925
@@ -45,25 +45,25 @@ stages:
       size: 2891
     outs:
     - path: data/final
-      md5: f90b0c30f8fb635408cf5fab47677d59.dir
-      size: 347213
+      md5: edd6c6eada3048daed0ae42f4beec1e9.dir
+      size: 609138
       nfiles: 1
     - path: image
-      md5: cfd5d57b6248bb560e81e474ca4f4e32.dir
-      size: 209092
+      md5: fcb8c4f2d402fa58db7ff8a4d983eb68.dir
+      size: 191408
       nfiles: 2
     - path: metrics.csv
-      md5: bcf60aeb17d74b0919d5d6e28b09eb55
-      size: 102
+      md5: 9d6316ded210f3e749d0d683ddcfb420
+      size: 101
     - path: model/cluster.pkl
-      md5: 29e3c3d54dec74d0042738e042bb2fc2
+      md5: b00a4d0310ac574a465c2106815da24c
       size: 9688
   analyze:
     cmd: jupyter notebook
     deps:
     - path: data/final
-      md5: f90b0c30f8fb635408cf5fab47677d59.dir
-      size: 347213
+      md5: edd6c6eada3048daed0ae42f4beec1e9.dir
+      size: 609138
       nfiles: 1
     - path: notebook/analyze_data.ipynb
       md5: 2009e6273fce432a35f475d3a2458ea1
