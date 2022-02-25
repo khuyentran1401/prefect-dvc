@@ -31,15 +31,13 @@ process:
   - Income
   - Recency
   - NumWebVisitsMonth
-  - AcceptedCmp3
-  - AcceptedCmp4
-  - AcceptedCmp5
-  - AcceptedCmp1
-  - AcceptedCmp2
+  - NumDealsPurchases
+  - NumWebPurchases
+  - NumCatalogPurchases
+  - NumStorePurchases
   - Complain
   - Response
   - age
-  - total_purchases
   - enrollment_years
   - family_size
     
