@@ -41,4 +41,4 @@ git_add:
 	git add .
 	git status
 
-add: dvc_add dvc_push git_add
+add: dvc_add git_add
