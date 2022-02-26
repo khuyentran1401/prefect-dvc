@@ -28,11 +28,17 @@ clean:
 	@echo "Deleting log files..."
 	find . -name "*.log" -type f -not -path "./wandb/*" -delete
 
+dvc_add:
+	dvc add data 
+	dvc add model
+	dvc add image 
+	dvc add metrics.csv
+
 dvc_push:
-	dvc push
+	dvc push -r origin
 
 git_add:
 	git add .
 	git status
 
-add: dvc_push git_add
+add: dvc_add dvc_push git_add

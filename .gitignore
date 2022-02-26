@@ -18,3 +18,4 @@ artifacts
 /model
 .venv
 /metrics.csv
+/data

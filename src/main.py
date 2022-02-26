@@ -29,7 +29,7 @@ def main(config: DictConfig):
             segment(config, logger)
 
         elif config.flow == "process_data":
-            process_data(config, logger)
+            process_data(config)
 
         elif config.flow == "segment":
             segment(config, logger)

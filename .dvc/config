@@ -1,5 +1,2 @@
-[core]
-    autostage = true
-    remote = origin
 ['remote "origin"']
     url = https://dagshub.com/khuyentran1401/customer_segmentation_demo.dvc
