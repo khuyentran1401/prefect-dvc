@@ -1,4 +1,3 @@
-import dagshub
 import hydra
 import mlflow
 from omegaconf import DictConfig
@@ -6,7 +5,7 @@ from omegaconf import DictConfig
 from logger import BaseLogger
 from process_data import process_data
 from segment import segment
-
+from run_notebook import run_notebook
 
 @hydra.main(
     config_path="../config",
@@ -17,7 +16,7 @@ def main(config: DictConfig):
     logger = BaseLogger()
 
     mlflow.set_tracking_uri(
-        "https://dagshub.com/khuyentran1401/customer_segmentation_demo.mlflow"
+        "https://dagshub.com/khuyentran1401/dagshub-demo.mlflow"
     )
     with mlflow.start_run():
 
@@ -27,12 +26,16 @@ def main(config: DictConfig):
         if config.flow == "all":
             process_data(config)
             segment(config, logger)
+            run_notebook(config)
 
         elif config.flow == "process_data":
             process_data(config)
 
         elif config.flow == "segment":
             segment(config, logger)
+        
+        elif config.flow == "run_notebook":
+            run_notebook(config)
 
         else:
             print("flow not found")

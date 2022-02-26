@@ -16,7 +16,7 @@
 2. Set up the environment:
 ```bash
 make setup
-make install
+make install_all
 ```
 
 ## Run the Project
