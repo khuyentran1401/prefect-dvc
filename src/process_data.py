@@ -2,7 +2,7 @@ import pandas as pd
 from dagshub.logger import DAGsHubLogger
 from omegaconf import DictConfig
 from sklearn.preprocessing import StandardScaler
-
+import hydra 
 
 def load_data(data_name: str) -> pd.DataFrame:
     data = pd.read_csv(data_name)
@@ -68,7 +68,10 @@ def get_scaler(df: pd.DataFrame):
 def scale_features(df: pd.DataFrame, scaler: StandardScaler):
     return pd.DataFrame(scaler.transform(df), columns=df.columns)
 
-
+@hydra.main(
+    config_path="../config",
+    config_name="main",
+)
 def process_data(config: DictConfig):
 
     df = load_data(config.raw_data.path)
@@ -86,3 +89,6 @@ def process_data(config: DictConfig):
     scaler = get_scaler(df)
     df = scale_features(df, scaler)
     df.to_csv(config.intermediate.path, index=False)
+
+if __name__ == "__main__":
+    process_data()

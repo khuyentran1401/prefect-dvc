@@ -10,7 +10,8 @@ from sklearn.decomposition import PCA
 from yellowbrick.cluster import KElbowVisualizer
 
 from logger import BaseLogger
-
+import mlflow
+import hydra 
 
 def get_pca_model(data: pd.DataFrame) -> PCA:
 
@@ -95,22 +96,38 @@ def plot_clusters(
 
     plt.savefig(image_path)
 
+@hydra.main(
+    config_path="../config",
+    config_name="main",
+)
+def segment(config: DictConfig) -> None:
 
-def segment(config: DictConfig, logger: BaseLogger) -> None:
+    # initialize logger
 
-    data = pd.read_csv(config.intermediate.path)
-    pca = get_pca_model(data)
-    pca_df = reduce_dimension(data, pca)
-    projections = get_3d_projection(pca_df)
-    k_best = get_best_k_cluster(pca_df, config.image.kmeans, logger)
-    model = get_clusters_model(pca_df, k_best, logger)
-    preds = predict(model, pca_df)
-    data = insert_clusters_to_df(data, preds)
-    plot_clusters(
-        pca_df,
-        preds,
-        projections,
-        config.image.clusters,
+    mlflow.set_tracking_uri(
+        "https://dagshub.com/khuyentran1401/dagshub-demo.mlflow"
     )
-    data.to_csv(config.final.path, index=False)
-    pickle.dump(model, open(config.model.path, "wb"))
+    with mlflow.start_run():
+        logger = BaseLogger()
+        logger.log_params(dict(config.process))
+        logger.log_params({"num_columns": len(config.process.keep_columns)})
+
+        data = pd.read_csv(config.intermediate.path)
+        pca = get_pca_model(data)
+        pca_df = reduce_dimension(data, pca)
+        projections = get_3d_projection(pca_df)
+        k_best = get_best_k_cluster(pca_df, config.image.kmeans, logger)
+        model = get_clusters_model(pca_df, k_best, logger)
+        preds = predict(model, pca_df)
+        data = insert_clusters_to_df(data, preds)
+        plot_clusters(
+            pca_df,
+            preds,
+            projections,
+            config.image.clusters,
+        )
+        data.to_csv(config.final.path, index=False)
+        pickle.dump(model, open(config.model.path, "wb"))
+
+if __name__ == "__main__":
+    segment()

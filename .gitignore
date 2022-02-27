@@ -11,7 +11,7 @@ customer-segmentation-a-AULLE--py3.8
 .tox
 wandb
 multirun
-main.log
+*.log
 mlruns
 artifacts
 /image
@@ -19,3 +19,5 @@ artifacts
 .venv
 /data
 .DS_Store
+/metrics.csv
+/segment_metrics.csv

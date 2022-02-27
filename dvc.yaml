@@ -1,6 +1,6 @@
 stages:
   process_data:
-    cmd: python src/main.py flow=process_data
+    cmd: python src/process_data.py
     deps:
     - config/main.yaml
     - data/raw
@@ -11,7 +11,7 @@ stages:
     - data/intermediate:
         persist: true
   segment:
-    cmd: python src/main.py flow=segment
+    cmd: python src/segment.py
     deps:
     - config/main.yaml
     - data/intermediate
@@ -27,10 +27,9 @@ stages:
         persist: true
     metrics:
     - metrics.csv:
-        cache: false
         persist: true
   analyze:
-    cmd: python src/main.py flow=run_notebook
+    cmd: python src/run_notebook.py
     deps:
     - notebook/analyze_data.ipynb
     - data/final
