@@ -5,7 +5,7 @@ hydra:
     dir: .
 
 defaults:
-  - process: process_2
+  - process: process_1
   - _self_
 
 flow: all 
