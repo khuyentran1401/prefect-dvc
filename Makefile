@@ -27,10 +27,7 @@ clean:
 	find . -name "*.log" -type f -not -path "./wandb/*" -delete
 
 dvc_add:
-	dvc add data 
-	dvc add model
-	dvc add image 
-	dvc add metrics.csv
+	dvc add data model image metrics.csv
 
 dvc_push:
 	dvc push -r origin

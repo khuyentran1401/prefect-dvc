@@ -17,5 +17,4 @@ artifacts
 /image
 /model
 .venv
-/metrics.csv
 /data

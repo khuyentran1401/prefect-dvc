@@ -86,5 +86,3 @@ def process_data(config: DictConfig):
     scaler = get_scaler(df)
     df = scale_features(df, scaler)
     df.to_csv(config.intermediate.path, index=False)
-
-    # wandb.config.update({"num_cols": len(config.process.columns.keep)})
