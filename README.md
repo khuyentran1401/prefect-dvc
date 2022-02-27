@@ -1,3 +1,4 @@
+[![](https://img.shields.io/badge/DagsHub-Link%20to%20DagsHub-red)](https://dagshub.com/khuyentran1401/dagshub-demo)
 # End-to-end Customer Segmentation Project
 
 ## Tools Used in This Project
