@@ -1,0 +1,70 @@
+schema: '2.0'
+stages:
+  process_data:
+    cmd: python src/main.py flow=process_data
+    deps:
+    - path: config/main.yaml
+      md5: 226c51eb1627d18aef3707f80f0acbd0
+      size: 460
+    - path: data/raw
+      md5: 10c3f643286f509fa7f6b4675d9efbad.dir
+      size: 222379
+      nfiles: 1
+    - path: params.yml
+      md5: 78330daad440150d5020e955ceb86069
+      size: 383
+    - path: src/main.py
+      md5: a112d0ca1835584a54e1e85775acf4bc
+      size: 1044
+    - path: src/process_data.py
+      md5: eebcf7e89081045daecc9941c6505e9b
+      size: 2466
+    outs:
+    - path: data/intermediate
+      md5: c453b073acbbd6bed74e63148a7e997b.dir
+      size: 349144
+      nfiles: 1
+  segment:
+    cmd: python src/main.py flow=segment
+    deps:
+    - path: config/main.yaml
+      md5: 226c51eb1627d18aef3707f80f0acbd0
+      size: 460
+    - path: data/intermediate
+      md5: c453b073acbbd6bed74e63148a7e997b.dir
+      size: 349144
+      nfiles: 1
+    - path: params.yml
+      md5: 6c4bc018aa75851fcd43f43fee31aa78
+      size: 556
+    - path: src/main.py
+      md5: a112d0ca1835584a54e1e85775acf4bc
+      size: 1044
+    - path: src/segment.py
+      md5: 74b55535d61ece2e8e78d3c3781bbdb7
+      size: 2891
+    outs:
+    - path: data/final
+      md5: 99876e39d2ff700e9cbf604a4bf5f522.dir
+      size: 347213
+      nfiles: 1
+    - path: image
+      md5: 4c4f3129bdacecdd561d619700d14303.dir
+      size: 216436
+      nfiles: 2
+    - path: metrics.csv
+      md5: 63bbd33cdecf20e5e50644ce9bdb2dbc
+      size: 102
+    - path: model/cluster.pkl
+      md5: 287eebffb14e79be5c8e019e4f0baeb6
+      size: 9688
+  analyze:
+    cmd: python src/main.py flow=run_notebook
+    deps:
+    - path: data/final
+      md5: 99876e39d2ff700e9cbf604a4bf5f522.dir
+      size: 347213
+      nfiles: 1
+    - path: notebook/analyze_data.ipynb
+      md5: 767ba9b856f89d6ca6602158f71624ed
+      size: 63124
