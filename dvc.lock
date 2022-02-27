@@ -35,8 +35,8 @@ stages:
       size: 349144
       nfiles: 1
     - path: params.yml
-      md5: 78330daad440150d5020e955ceb86069
-      size: 383
+      md5: 6c4bc018aa75851fcd43f43fee31aa78
+      size: 556
     - path: src/main.py
       md5: a112d0ca1835584a54e1e85775acf4bc
       size: 1044
@@ -45,24 +45,24 @@ stages:
       size: 2891
     outs:
     - path: data/final
-      md5: 99876e39d2ff700e9cbf604a4bf5f522.dir
+      md5: 40fe31de48c9672e9aa7e31dc67de1b6.dir
       size: 347213
       nfiles: 1
     - path: image
-      md5: 4c4f3129bdacecdd561d619700d14303.dir
-      size: 216436
+      md5: 2de7beead0a3edb2e22ab36f8debd698.dir
+      size: 217921
       nfiles: 2
     - path: metrics.csv
-      md5: f0c89a07561ca8aea8ab3f4764b648e7
-      size: 26
+      md5: bc5a3370e3415f940147dddcb77a4a66
+      size: 102
     - path: model/cluster.pkl
-      md5: 287eebffb14e79be5c8e019e4f0baeb6
+      md5: 027ef282e41598b072610fe89332aef9
       size: 9688
   analyze:
     cmd: python src/main.py flow=run_notebook
     deps:
     - path: data/final
-      md5: 99876e39d2ff700e9cbf604a4bf5f522.dir
+      md5: 40fe31de48c9672e9aa7e31dc67de1b6.dir
       size: 347213
       nfiles: 1
     - path: notebook/analyze_data.ipynb

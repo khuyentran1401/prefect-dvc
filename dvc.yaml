@@ -9,7 +9,6 @@ stages:
     - src/process_data.py
     outs:
     - data/intermediate:
-        cache: false
         persist: true
   segment:
     cmd: python src/main.py flow=segment
@@ -21,13 +20,10 @@ stages:
     - src/segment.py
     outs:
     - data/final:
-        cache: false
         persist: true
     - image:
-        cache: false
         persist: true
     - model/cluster.pkl:
-        cache: false
         persist: true
     metrics:
     - metrics.csv:
