@@ -17,7 +17,6 @@ artifacts
 /image
 /model
 .venv
-/data
 .DS_Store
 /metrics.csv
 /segment_metrics.csv
