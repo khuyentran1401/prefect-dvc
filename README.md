@@ -3,7 +3,7 @@
 ## Tools Used in This Project
 * [hydra](https://hydra.cc/): Manage configuration files
 * [DVC](https://dvc.org/): Data version control
-* [DagsHub]: GitHub-like platform for data scientists and machine learning engineers
+* [DagsHub](http://dagshub.com/): GitHub-like platform for data scientists and machine learning engineers
 ## Project Structure
 * `src`: consists of Python scripts
 * `config`: consists of configuration files
