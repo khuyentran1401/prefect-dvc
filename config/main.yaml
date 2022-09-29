@@ -10,6 +10,10 @@ defaults:
 
 flow: all 
 
+git:
+  url: https://github.com/khuyentran1401/dvc-demo
+  rev: master 
+  
 raw_data: 
   path: data/raw/marketing_campaign.csv
 

@@ -2,6 +2,8 @@ import warnings
 from datetime import date
 
 import pandas as pd
+from dvc.api import DVCFileSystem
+from omegaconf import DictConfig
 from prefect import flow, task
 from sklearn.preprocessing import StandardScaler
 
@@ -11,8 +13,10 @@ warnings.simplefilter(action="ignore", category=UserWarning)
 
 
 @task
-def load_data(data_name: str) -> pd.DataFrame:
-    data = pd.read_csv(data_name)
+def load_data(git: DictConfig, data_name: str) -> pd.DataFrame:
+    fs = DVCFileSystem(git.url, rev=git.rev)
+    with fs.open(data_name) as f:
+        data = pd.read_csv(f)
     return data
 
 
@@ -83,7 +87,7 @@ def scale_features(df: pd.DataFrame, scaler: StandardScaler):
 @flow(name="Process data")
 def process_data():
     config = load_config()
-    df = load_data(config.raw_data.path)
+    df = load_data(config.git, config.raw_data.path)
     df = (
         df.pipe(drop_na)
         .pipe(get_age)
