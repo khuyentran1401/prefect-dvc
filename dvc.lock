@@ -11,11 +11,11 @@ stages:
       size: 222379
       nfiles: 1
     - path: src/main.py
-      md5: ccc4859e0c66a9ac1102224575f46ccc
-      size: 297
+      md5: d2c45f38b325f9113edbfc609bdbbf17
+      size: 153
     - path: src/process_data.py
-      md5: 21912b12926bf9034c487d2fd7dbae1a
-      size: 2682
+      md5: ef45c9cec0055cf2991f020aedc58457
+      size: 2527
     outs:
     - path: data/intermediate
       md5: 9503e800e9c4e01a93c29eafc53f63c4.dir
@@ -32,22 +32,22 @@ stages:
       size: 621318
       nfiles: 1
     - path: src/main.py
-      md5: ccc4859e0c66a9ac1102224575f46ccc
-      size: 297
+      md5: d2c45f38b325f9113edbfc609bdbbf17
+      size: 153
     - path: src/segment.py
-      md5: 8313b08b0ad0fc1d851f661327eaab01
-      size: 2728
+      md5: 96137e35b4f05a9776d8b9ef5b49ca35
+      size: 2832
     outs:
     - path: data/final
-      md5: 0c21ec0bedd698f800e3717ad63d8c99.dir
+      md5: 56329aaaaf0f2d15290dc7b99a4bdbd1.dir
       size: 609138
       nfiles: 1
     - path: image
-      md5: bb0b90675fa34e818d7c10b3cdc59302.dir
-      size: 187846
+      md5: cd444dfc4868eb2411ea457644bb654e.dir
+      size: 188616
       nfiles: 2
     - path: model/cluster.pkl
-      md5: 16957dd255070b13f17629232d8da7c6
+      md5: 034e8e5d3afc7b0b1a136a6a18d50d31
       size: 9703
   analyze:
     cmd: python src/run_notebook.py

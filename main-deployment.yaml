@@ -1,0 +1,43 @@
+###
+### A complete description of a Prefect Deployment for flow 'Process and segment customers'
+###
+name: customer-segmentation
+description: null
+version: 2afc5a897d29207ef06a31486215cf04
+# The work queue that will handle this deployment's runs
+work_queue_name: dev
+tags: []
+parameters: {}
+schedule: null
+infra_overrides: {}
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  block_type_slug: process
+  _block_type_slug: process
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: Process and segment customers
+manifest_path: null
+storage:
+  repository: https://github.com/khuyentran1401/dvc-demo
+  reference: null
+  _block_document_id: b0b65996-b11d-435c-8f75-ff25d3405e22
+  _block_document_name: dvc-demo
+  _is_anonymous: false
+  block_type_slug: github
+  _block_type_slug: github
+path: ''
+entrypoint: src/main.py:main
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties: {}
+  required: null
+  definitions: null

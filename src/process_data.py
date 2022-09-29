@@ -1,4 +1,5 @@
 import warnings
+from datetime import date
 
 import pandas as pd
 from prefect import flow, task
@@ -22,7 +23,9 @@ def drop_na(df: pd.DataFrame) -> pd.DataFrame:
 
 @task
 def get_age(df: pd.DataFrame) -> pd.DataFrame:
-    return df.assign(age=df["Year_Birth"].apply(lambda row: 2021 - row))
+    return df.assign(
+        age=df["Year_Birth"].apply(lambda row: date.today().year - row)
+    )
 
 
 @task
@@ -77,7 +80,7 @@ def scale_features(df: pd.DataFrame, scaler: StandardScaler):
     return pd.DataFrame(scaler.transform(df), columns=df.columns)
 
 
-@flow
+@flow(name="Process data")
 def process_data():
     config = load_config()
     df = load_data(config.raw_data.path)

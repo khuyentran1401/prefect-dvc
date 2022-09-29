@@ -95,7 +95,7 @@ def plot_clusters(
     plt.savefig(image_path)
 
 
-@flow
+@flow(name="Segment customers")
 def segment() -> None:
 
     config = load_config()
