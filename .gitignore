@@ -22,3 +22,4 @@ venv
 *.csv 
 *.png
 *.pkl
+*.ipynb
