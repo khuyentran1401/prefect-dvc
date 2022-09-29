@@ -20,3 +20,4 @@ artifacts
 .DS_Store
 /metrics.csv
 /segment_metrics.csv
+venv

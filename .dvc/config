@@ -1,2 +1,4 @@
-['remote "origin"']
-    url = https://dagshub.com/khuyentran1401/dagshub-demo.dvc
+[core]
+    remote = remote
+['remote "remote"']
+    url = gdrive://1vnVQ0DndAdrhrsOjZ7ktIO5C2i1lWb2L

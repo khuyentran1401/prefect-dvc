@@ -4,7 +4,6 @@ stages:
     deps:
     - config/main.yaml
     - data/raw
-    - params.yml
     - src/main.py
     - src/process_data.py
     outs:
@@ -15,7 +14,6 @@ stages:
     deps:
     - config/main.yaml
     - data/intermediate
-    - params.yml
     - src/main.py
     - src/segment.py
     outs:
@@ -25,12 +23,3 @@ stages:
         persist: true
     - model/cluster.pkl:
         persist: true
-    metrics:
-    - metrics.csv:
-        persist: true
-  analyze:
-    cmd: python src/run_notebook.py
-    deps:
-    - notebook/analyze_data.ipynb
-    - data/final
-
