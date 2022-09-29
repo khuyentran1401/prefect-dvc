@@ -2,9 +2,9 @@
 # End-to-end Customer Segmentation Project
 
 ## Tools Used in This Project
-* [hydra](https://hydra.cc/): Manage configuration files
 * [DVC](https://dvc.org/): Data version control
-* [DagsHub](http://dagshub.com/): GitHub-like platform for data scientists and machine learning engineers
+* [Prefect](https://www.prefect.io/): Orchestrate and observe dataflow
+
 ## Project Structure
 * `src`: consists of Python scripts
 * `config`: consists of configuration files
@@ -13,11 +13,13 @@
 * `tests`: consists of test files
 
 ## Set Up the Project
-1. Install [Poetry](https://python-poetry.org/docs/#installation)
-2. Set up the environment:
+* Install requirements:
 ```bash
-make setup
-make install_all
+pip install -r requirements.txt
+```
+* Pull the data:
+```bash
+dvc pull
 ```
 
 ## Run the Project
