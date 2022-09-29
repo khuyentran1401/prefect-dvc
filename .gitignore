@@ -14,10 +14,11 @@ multirun
 *.log
 mlruns
 artifacts
-/image
-/model
 .venv
 .DS_Store
 /metrics.csv
 /segment_metrics.csv
 venv
+*.csv 
+*.png
+*.pkl
