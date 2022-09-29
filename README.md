@@ -1,5 +1,5 @@
-[![](https://img.shields.io/badge/DagsHub-Link%20to%20DagsHub-red)](https://dagshub.com/khuyentran1401/dagshub-demo)
-# End-to-end Customer Segmentation Project
+# Prefect + DVC Demo
+A demo on how to use Prefect with DVC
 
 ## Tools Used in This Project
 * [DVC](https://dvc.org/): Data version control
