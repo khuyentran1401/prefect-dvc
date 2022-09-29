@@ -17,10 +17,6 @@
 ```bash
 pip install -r requirements.txt
 ```
-* Pull the data:
-```bash
-dvc pull
-```
 
 ## Run the Project
 To run all flows, type:
