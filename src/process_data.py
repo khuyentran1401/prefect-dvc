@@ -1,3 +1,4 @@
+import os
 import warnings
 from datetime import date
 
@@ -5,11 +6,24 @@ import pandas as pd
 from dvc.api import DVCFileSystem
 from omegaconf import DictConfig
 from prefect import flow, task
+from prefect.blocks.system import Secret
 from sklearn.preprocessing import StandardScaler
 
 from helper import load_config
 
 warnings.simplefilter(action="ignore", category=UserWarning)
+
+
+@task
+def add_credentials():
+    gdrive_client_id = Secret.load("gdrive-client-id").get()
+    gdrive_client_secret = Secret.load("gdrive-client-secret").get()
+    os.system(
+        f"dvc remote modify --local remote gdrive_client_id '{gdrive_client_id}'"
+    )
+    os.system(
+        f"dvc remote modify --local remote gdrive_client_secret '{gdrive_client_secret}'"
+    )
 
 
 @task
@@ -90,6 +104,7 @@ def scale_features(df: pd.DataFrame, scaler: StandardScaler):
 @flow(name="Process data")
 def process_data():
     config = load_config()
+    add_credentials()
     download_data(config.git, config.raw_data.path)
     df = read_data(config.raw_data.path)
     df = (
