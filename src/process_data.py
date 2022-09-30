@@ -13,11 +13,14 @@ warnings.simplefilter(action="ignore", category=UserWarning)
 
 
 @task
-def load_data(git: DictConfig, data_name: str) -> pd.DataFrame:
+def download_data(git: DictConfig) -> pd.DataFrame:
     fs = DVCFileSystem(git.url, rev=git.rev)
-    with fs.open(data_name) as f:
-        data = pd.read_csv(f)
-    return data
+    fs.get_file("data/raw", "data/raw", recursive=True)
+
+
+@task
+def read_data(raw_data: str) -> pd.DataFrame:
+    return pd.read_csv(raw_data)
 
 
 @task
@@ -87,7 +90,8 @@ def scale_features(df: pd.DataFrame, scaler: StandardScaler):
 @flow(name="Process data")
 def process_data():
     config = load_config()
-    df = load_data(config.git, config.raw_data.path)
+    download_data(config.git)
+    df = read_data(config.raw_data.path)
     df = (
         df.pipe(drop_na)
         .pipe(get_age)

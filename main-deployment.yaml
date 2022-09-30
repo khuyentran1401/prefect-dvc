@@ -3,32 +3,42 @@
 ###
 name: customer-segmentation
 description: null
-version: 2afc5a897d29207ef06a31486215cf04
+version: d6c9ce851678c464f0f8bbb3624340ea
 # The work queue that will handle this deployment's runs
 work_queue_name: dev
 tags: []
 parameters: {}
 schedule: null
 infra_overrides: {}
-infrastructure:
-  type: process
-  env: {}
-  labels: {}
-  name: null
-  command: null
-  stream_output: true
-  block_type_slug: process
-  _block_type_slug: process
 
 ###
 ### DO NOT EDIT BELOW THIS LINE
 ###
 flow_name: Process and segment customers
 manifest_path: null
+infrastructure:
+  type: docker-container
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  image: khuyentran1401/customer_segmentation:first
+  image_pull_policy: IF_NOT_PRESENT
+  image_registry: null
+  networks: []
+  network_mode: null
+  auto_remove: false
+  volumes: []
+  stream_output: true
+  _block_document_id: 22d3644f-6e81-40be-b281-7a7522c6247b
+  _block_document_name: dvc-demo
+  _is_anonymous: false
+  block_type_slug: docker-container
+  _block_type_slug: docker-container
 storage:
   repository: https://github.com/khuyentran1401/dvc-demo
   reference: null
-  _block_document_id: b0b65996-b11d-435c-8f75-ff25d3405e22
+  _block_document_id: b93e9fe1-cfec-455a-8a62-d84f9619ca54
   _block_document_name: dvc-demo
   _is_anonymous: false
   block_type_slug: github
