@@ -13,9 +13,9 @@ warnings.simplefilter(action="ignore", category=UserWarning)
 
 
 @task
-def download_data(git: DictConfig) -> pd.DataFrame:
+def download_data(git: DictConfig, raw_data: str) -> pd.DataFrame:
     fs = DVCFileSystem(git.url, rev=git.rev)
-    fs.get_file("data/raw", "data/raw", recursive=True)
+    fs.get_file(raw_data, raw_data)
 
 
 @task
@@ -90,7 +90,7 @@ def scale_features(df: pd.DataFrame, scaler: StandardScaler):
 @flow(name="Process data")
 def process_data():
     config = load_config()
-    download_data(config.git)
+    download_data(config.git, config.raw_data.path)
     df = read_data(config.raw_data.path)
     df = (
         df.pipe(drop_na)
