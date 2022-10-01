@@ -1,35 +1,14 @@
-import os
 import warnings
 from datetime import date
-from pathlib import Path
 
 import pandas as pd
-from dvc.api import DVCFileSystem
 from omegaconf import DictConfig
 from prefect import flow, task
-from prefect.blocks.system import Secret
 from sklearn.preprocessing import StandardScaler
 
-from helper import create_parent_directory, load_config
+from helper import load_config
 
 warnings.simplefilter(action="ignore", category=UserWarning)
-
-
-@task
-def add_credentials():
-    user = Secret.load("dagshub-user").get()
-    password = Secret.load("dagshub-password").get()
-    os.system("dvc remote modify --local origin auth basic")
-    os.system(f"dvc remote modify --local origin user '{user}'")
-    os.system(f"dvc remote modify --local origin password '{password}'")
-
-
-@task
-def download_data(config: DictConfig) -> pd.DataFrame:
-    fs = DVCFileSystem(config.git.url, rev=config.git.rev)
-    data_path = config.raw_data.path
-    create_parent_directory(data_path)
-    fs.get_file(data_path, data_path)
 
 
 @task
@@ -111,8 +90,6 @@ def save_process_data(df: pd.DataFrame, config: DictConfig):
 @flow(name="Process data")
 def process_data():
     config = load_config()
-    add_credentials()
-    download_data(config)
     df = read_data(config)
     df = (
         df.pipe(drop_na)
