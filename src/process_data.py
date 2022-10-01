@@ -23,14 +23,14 @@ def add_credentials():
 
 
 @task
-def download_data(git: DictConfig, raw_data: str) -> pd.DataFrame:
-    fs = DVCFileSystem(git.url, rev=git.rev)
-    fs.get_file(raw_data, raw_data)
+def download_data(config: DictConfig) -> pd.DataFrame:
+    fs = DVCFileSystem(config.git.url, rev=config.git.rev)
+    fs.get_file(config.raw_data.path, config.raw_data.path)
 
 
 @task
-def read_data(raw_data: str) -> pd.DataFrame:
-    return pd.read_csv(raw_data)
+def read_data(config: DictConfig) -> pd.DataFrame:
+    return pd.read_csv(config.raw_data.path)
 
 
 @task
@@ -65,15 +65,16 @@ def get_enrollment_years(df: pd.DataFrame) -> pd.DataFrame:
 
 
 @task
-def get_family_size(df: pd.DataFrame, size_map: dict) -> pd.DataFrame:
+def get_family_size(df: pd.DataFrame, config: DictConfig) -> pd.DataFrame:
     return df.assign(
-        family_size=df["Marital_Status"].map(size_map) + df["total_children"]
+        family_size=df["Marital_Status"].map(config.process.family_size)
+        + df["total_children"]
     )
 
 
 @task
-def drop_features(df: pd.DataFrame, keep_columns: list):
-    df = df[keep_columns]
+def drop_features(df: pd.DataFrame, config: DictConfig):
+    df = df[config.process.keep_columns]
     return df
 
 
@@ -97,20 +98,25 @@ def scale_features(df: pd.DataFrame, scaler: StandardScaler):
     return pd.DataFrame(scaler.transform(df), columns=df.columns)
 
 
+@task
+def save_process_data(df: pd.DataFrame, config: DictConfig):
+    df.to_csv(config.intermediate.path, index=False)
+
+
 @flow(name="Process data")
 def process_data():
     config = load_config()
     add_credentials()
-    download_data(config.git, config.raw_data.path)
-    df = read_data(config.raw_data.path)
+    download_data(config)
+    df = read_data(config)
     df = (
         df.pipe(drop_na)
         .pipe(get_age)
         .pipe(get_total_children)
         .pipe(get_total_purchases)
         .pipe(get_enrollment_years)
-        .pipe(get_family_size, size_map=config.process.family_size)
-        .pipe(drop_features, keep_columns=config.process.keep_columns)
+        .pipe(get_family_size, config)
+        .pipe(drop_features, config)
         .pipe(
             drop_outliers,
             column_threshold=config.process.remove_outliers_threshold,
@@ -118,7 +124,7 @@ def process_data():
     )
     scaler = get_scaler(df)
     df = scale_features(df, scaler)
-    df.to_csv(config.intermediate.path, index=False)
+    save_process_data(df, config)
 
 
 if __name__ == "__main__":

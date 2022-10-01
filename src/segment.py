@@ -18,6 +18,11 @@ warnings.simplefilter(action="ignore", category=DeprecationWarning)
 
 
 @task
+def read_process_data(config: DictConfig):
+    return pd.read_csv(config.intermediate.path)
+
+
+@task
 def get_pca_model(data: pd.DataFrame) -> PCA:
 
     pca = PCA(n_components=3)
@@ -37,7 +42,9 @@ def get_3d_projection(pca_df: pd.DataFrame) -> dict:
 
 
 @task
-def get_best_k_cluster(pca_df: pd.DataFrame, image_path: str) -> pd.DataFrame:
+def get_best_k_cluster(
+    pca_df: pd.DataFrame, config: DictConfig
+) -> pd.DataFrame:
     matplotlib.use("svg")
     fig = plt.figure(figsize=(10, 8))
     fig.add_subplot(111)
@@ -45,7 +52,7 @@ def get_best_k_cluster(pca_df: pd.DataFrame, image_path: str) -> pd.DataFrame:
     elbow = KElbowVisualizer(KMeans(), metric="distortion")
 
     elbow.fit(pca_df)
-    elbow.fig.savefig(image_path)
+    elbow.fig.savefig(config.image.kmeans)
 
     k_best = elbow.elbow_value_
     return k_best
@@ -75,7 +82,10 @@ def insert_clusters_to_df(
 
 @task
 def plot_clusters(
-    pca_df: pd.DataFrame, preds: np.ndarray, projections: dict, image_path: str
+    pca_df: pd.DataFrame,
+    preds: np.ndarray,
+    projections: dict,
+    config: DictConfig,
 ) -> None:
     pca_df["clusters"] = preds
     matplotlib.use("svg")
@@ -92,18 +102,24 @@ def plot_clusters(
     )
     ax.set_title("The Plot Of The Clusters")
 
-    plt.savefig(image_path)
+    plt.savefig(config.image.clusters)
+
+
+@task
+def save_data_and_model(data: pd.DataFrame, model: KMeans, config: DictConfig):
+    data.to_csv(config.final.path, index=False)
+    pickle.dump(model, open(config.model.path, "wb"))
 
 
 @flow(name="Segment customers")
 def segment() -> None:
 
     config = load_config()
-    data = pd.read_csv(config.intermediate.path)
+    data = read_process_data(config)
     pca = get_pca_model(data)
     pca_df = reduce_dimension(data, pca)
     projections = get_3d_projection(pca_df)
-    k_best = get_best_k_cluster(pca_df, config.image.kmeans)
+    k_best = get_best_k_cluster(pca_df, config)
     model = get_clusters_model(pca_df, k_best)
     preds = predict(model, pca_df)
     data = insert_clusters_to_df(data, preds)
@@ -111,10 +127,9 @@ def segment() -> None:
         pca_df,
         preds,
         projections,
-        config.image.clusters,
+        config,
     )
-    data.to_csv(config.final.path, index=False)
-    pickle.dump(model, open(config.model.path, "wb"))
+    save_data_and_model(data, model, config)
 
 
 if __name__ == "__main__":
