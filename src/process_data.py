@@ -1,7 +1,6 @@
 import os
 import warnings
 from datetime import date
-from pathlib import Path
 
 import pandas as pd
 from dvc.api import DVCFileSystem
@@ -105,6 +104,7 @@ def scale_features(df: pd.DataFrame, scaler: StandardScaler):
 
 @task
 def save_process_data(df: pd.DataFrame, config: DictConfig):
+    create_parent_directory(config.intermediate.path)
     df.to_csv(config.intermediate.path, index=False)
 
 
