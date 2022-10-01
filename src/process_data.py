@@ -16,14 +16,10 @@ warnings.simplefilter(action="ignore", category=UserWarning)
 
 @task
 def add_credentials():
-    gdrive_client_id = Secret.load("gdrive-client-id").get()
-    gdrive_client_secret = Secret.load("gdrive-client-secret").get()
-    os.system(
-        f"dvc remote modify --local remote gdrive_client_id '{gdrive_client_id}'"
-    )
-    os.system(
-        f"dvc remote modify --local remote gdrive_client_secret '{gdrive_client_secret}'"
-    )
+    user = Secret.load("dagshub-user").get()
+    password = Secret.load("dagshub-password").get()
+    os.system(f"dvc remote modify --local origin user '{user}'")
+    os.system(f"dvc remote modify --local origin password '{password}'")
 
 
 @task

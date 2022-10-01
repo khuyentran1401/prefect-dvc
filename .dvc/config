@@ -1,6 +1,9 @@
 [core]
-    remote = remote
+    remote = origin
+    autostage = true
 ['remote "remote"']
     url = gdrive://1vnVQ0DndAdrhrsOjZ7ktIO5C2i1lWb2L
     gdrive_acknowledge_abuse = true
     verify = false
+['remote "origin"']
+    url = https://dagshub.com/khuyentran1401/prefect-dvc.dvc
