@@ -1,5 +1,0 @@
-[core]
-    remote = origin
-    autostage = true
-['remote "origin"']
-    url = https://dagshub.com/khuyentran1401/prefect-dvc.dvc
