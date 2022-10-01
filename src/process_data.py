@@ -1,6 +1,7 @@
 import os
 import warnings
 from datetime import date
+from pathlib import Path
 
 import pandas as pd
 from dvc.api import DVCFileSystem
@@ -9,7 +10,7 @@ from prefect import flow, task
 from prefect.blocks.system import Secret
 from sklearn.preprocessing import StandardScaler
 
-from helper import load_config
+from helper import create_parent_directory, load_config
 
 warnings.simplefilter(action="ignore", category=UserWarning)
 
@@ -18,6 +19,7 @@ warnings.simplefilter(action="ignore", category=UserWarning)
 def add_credentials():
     user = Secret.load("dagshub-user").get()
     password = Secret.load("dagshub-password").get()
+    os.system("dvc remote modify --local origin auth basic")
     os.system(f"dvc remote modify --local origin user '{user}'")
     os.system(f"dvc remote modify --local origin password '{password}'")
 
@@ -25,7 +27,9 @@ def add_credentials():
 @task
 def download_data(config: DictConfig) -> pd.DataFrame:
     fs = DVCFileSystem(config.git.url, rev=config.git.rev)
-    fs.get_file(config.raw_data.path, config.raw_data.path)
+    data_path = config.raw_data.path
+    create_parent_directory(data_path)
+    fs.get_file(data_path, data_path)
 
 
 @task
@@ -79,7 +83,8 @@ def drop_features(df: pd.DataFrame, config: DictConfig):
 
 
 @task
-def drop_outliers(df: pd.DataFrame, column_threshold: dict):
+def drop_outliers(df: pd.DataFrame, config: DictConfig):
+    column_threshold = dict(config.process.remove_outliers_threshold)
     for col, threshold in column_threshold.items():
         df = df[df[col] < threshold]
     return df.reset_index(drop=True)
@@ -117,10 +122,7 @@ def process_data():
         .pipe(get_enrollment_years)
         .pipe(get_family_size, config)
         .pipe(drop_features, config)
-        .pipe(
-            drop_outliers,
-            column_threshold=config.process.remove_outliers_threshold,
-        )
+        .pipe(drop_outliers, config)
     )
     scaler = get_scaler(df)
     df = scale_features(df, scaler)

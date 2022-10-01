@@ -4,50 +4,50 @@ stages:
     cmd: python src/process_data.py
     deps:
     - path: config/main.yaml
-      md5: 502f25f9250333bb136c4839fb3f1bd9
-      size: 533
+      md5: ac9cbee475ca1646e47aef5f52a517c7
+      size: 550
     - path: data/raw
-      md5: 3ab2fa89af88fa75de21542ec710c4ba.dir
+      md5: 10c3f643286f509fa7f6b4675d9efbad.dir
       size: 222379
-      nfiles: 2
+      nfiles: 1
     - path: src/main.py
       md5: d6c9ce851678c464f0f8bbb3624340ea
       size: 223
     - path: src/process_data.py
-      md5: 484542f832404c82968ab35241adc513
-      size: 2772
+      md5: 166528862dd0ec0074c0b57ba2ab6285
+      size: 3328
     outs:
     - path: data/intermediate
-      md5: 9a2b1a403609c58f64838ebb8401e812.dir
+      md5: 9503e800e9c4e01a93c29eafc53f63c4.dir
       size: 621318
-      nfiles: 2
+      nfiles: 1
   segment:
     cmd: python src/segment.py
     deps:
     - path: config/main.yaml
-      md5: 502f25f9250333bb136c4839fb3f1bd9
-      size: 533
+      md5: ac9cbee475ca1646e47aef5f52a517c7
+      size: 550
     - path: data/intermediate
-      md5: 9a2b1a403609c58f64838ebb8401e812.dir
+      md5: 9503e800e9c4e01a93c29eafc53f63c4.dir
       size: 621318
-      nfiles: 2
+      nfiles: 1
     - path: src/main.py
       md5: d6c9ce851678c464f0f8bbb3624340ea
       size: 223
     - path: src/segment.py
-      md5: 2a7607bcdd358fca4cf91e4cb6468b96
-      size: 2858
+      md5: 3ed5adae84252048d3b436d129321b6c
+      size: 3096
     outs:
     - path: data/final
-      md5: 684f597a250f4beee2cbfd79db225710.dir
+      md5: 8483844eb84140bb336fb947b5e5ca0c.dir
       size: 609138
-      nfiles: 2
+      nfiles: 1
     - path: image
-      md5: 26bd104a98c3f9de86aa6c963c99d3c2.dir
-      size: 188067
+      md5: dc4bc6987accc3d79c8d9d3c4c5b0a8a.dir
+      size: 188832
       nfiles: 2
     - path: model/cluster.pkl
-      md5: 4f005ec7b73e573017eb7066c044c72a
+      md5: ce27d6595e7d77f8724c067452db9ca6
       size: 9703
   analyze:
     cmd: python src/run_notebook.py

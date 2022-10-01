@@ -12,7 +12,7 @@ from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 from yellowbrick.cluster import KElbowVisualizer
 
-from helper import load_config
+from helper import create_parent_directory, load_config
 
 warnings.simplefilter(action="ignore", category=DeprecationWarning)
 
@@ -45,13 +45,15 @@ def get_3d_projection(pca_df: pd.DataFrame) -> dict:
 def get_best_k_cluster(
     pca_df: pd.DataFrame, config: DictConfig
 ) -> pd.DataFrame:
+
     matplotlib.use("svg")
     fig = plt.figure(figsize=(10, 8))
     fig.add_subplot(111)
 
     elbow = KElbowVisualizer(KMeans(), metric="distortion")
-
     elbow.fit(pca_df)
+
+    create_parent_directory(config.image.kmeans)
     elbow.fig.savefig(config.image.kmeans)
 
     k_best = elbow.elbow_value_
@@ -107,7 +109,10 @@ def plot_clusters(
 
 @task
 def save_data_and_model(data: pd.DataFrame, model: KMeans, config: DictConfig):
+    create_parent_directory(config.final.path)
     data.to_csv(config.final.path, index=False)
+
+    create_parent_directory(config.model.path)
     pickle.dump(model, open(config.model.path, "wb"))
 
 

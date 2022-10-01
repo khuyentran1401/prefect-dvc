@@ -23,3 +23,4 @@ venv
 *.png
 *.pkl
 *.ipynb
+/image
