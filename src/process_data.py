@@ -6,7 +6,7 @@ from omegaconf import DictConfig
 from prefect import flow, task
 from sklearn.preprocessing import StandardScaler
 
-from helper import load_config
+from helper import create_parent_directory, load_config
 
 warnings.simplefilter(action="ignore", category=UserWarning)
 
@@ -84,6 +84,7 @@ def scale_features(df: pd.DataFrame, scaler: StandardScaler):
 
 @task
 def save_process_data(df: pd.DataFrame, config: DictConfig):
+    create_parent_directory(config.intermediate.path)
     df.to_csv(config.intermediate.path, index=False)
 
 
