@@ -1,17 +1,16 @@
-import matplotlib.pyplot as plt
-from prefect import flow, task
+from prefect_gcp.cloud_run import CloudRunJob
+from prefect_gcp.credentials import GcpCredentials
 
+cred = GcpCredentials(
+    service_account_file="/Users/khuyen/Documents/helpful-cat-364614-1276d324f379.json"
+)
+cred.save(name="gcp-cred", overwrite=True)
 
-@task
-def plot():
-    fig = plt.figure()
-    fig.plot([1, 2, 3], [1, 2, 3])
+job = CloudRunJob(
+    image="gcr.io/helpful-cat-364614/custom_segmentation",
+    region="us-central1",
+    credentials=cred,
+    cpu=1,
+)
 
-
-@flow
-def main():
-    plot.submit()
-
-
-if __name__ == "__main__":
-    main()
+job.save(name="gcp-run", overwrite=True)
