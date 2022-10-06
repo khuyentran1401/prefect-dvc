@@ -1,16 +1,21 @@
-from prefect_gcp.cloud_run import CloudRunJob
-from prefect_gcp.credentials import GcpCredentials
+from prefect import flow, task
 
-cred = GcpCredentials(
-    service_account_file="/Users/khuyen/Documents/helpful-cat-364614-1276d324f379.json"
-)
-cred.save(name="gcp-cred", overwrite=True)
 
-job = CloudRunJob(
-    image="gcr.io/helpful-cat-364614/custom_segmentation",
-    region="us-central1",
-    credentials=cred,
-    cpu=1,
-)
+@task
+def task1():
+    return 1
 
-job.save(name="gcp-run", overwrite=True)
+
+@task
+def task2(a):
+    return a + 1
+
+
+@flow
+def my_flow():
+    a = task1()
+    return task2(a)
+
+
+if __name__ == "__main__":
+    my_flow()

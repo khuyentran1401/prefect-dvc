@@ -2,11 +2,10 @@ import os
 import warnings
 from datetime import date
 
-import git
 import pandas as pd
 from dvc.api import DVCFileSystem
 from omegaconf import DictConfig
-from prefect import flow, get_run_logger, task
+from prefect import flow, task
 from prefect.blocks.system import Secret
 from sklearn.preprocessing import StandardScaler
 
@@ -109,13 +108,8 @@ def save_process_data(df: pd.DataFrame, config: DictConfig):
     df.to_csv(config.intermediate.path, index=False)
 
 
-@flow(
-    name="Process data",
-    version=git.Repo(search_parent_directories=True).head.commit.hexsha,
-)
+@flow(name="Process data")
 def process_data():
-    logger = get_run_logger()
-    logger.info(git.Repo(search_parent_directories=True).head.commit.hexsha)
     config = load_config()
     add_credentials()
     download_data(config)

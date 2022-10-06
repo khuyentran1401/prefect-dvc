@@ -14,8 +14,8 @@ stages:
       md5: d6c9ce851678c464f0f8bbb3624340ea
       size: 223
     - path: src/process_data.py
-      md5: 166528862dd0ec0074c0b57ba2ab6285
-      size: 3328
+      md5: 18c8c22be7b18cbb2faed5574670f19b
+      size: 3460
     outs:
     - path: data/intermediate
       md5: 9503e800e9c4e01a93c29eafc53f63c4.dir
@@ -35,19 +35,19 @@ stages:
       md5: d6c9ce851678c464f0f8bbb3624340ea
       size: 223
     - path: src/segment.py
-      md5: 3ed5adae84252048d3b436d129321b6c
-      size: 3096
+      md5: b46e8294e87e4f072cbc52d4b65ed142
+      size: 3266
     outs:
     - path: data/final
-      md5: 8483844eb84140bb336fb947b5e5ca0c.dir
+      md5: 69a4612fad6e986c48cf5f25e03b8e2d.dir
       size: 609138
       nfiles: 1
     - path: image
-      md5: dc4bc6987accc3d79c8d9d3c4c5b0a8a.dir
-      size: 188832
+      md5: e79be5a193dc8d656ef2878f7b796a0d.dir
+      size: 190604
       nfiles: 2
     - path: model/cluster.pkl
-      md5: ce27d6595e7d77f8724c067452db9ca6
+      md5: ca953c78f1ae921d766023ace3682cd8
       size: 9703
   analyze:
     cmd: python src/run_notebook.py

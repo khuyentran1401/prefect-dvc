@@ -1,9 +1,9 @@
 ###
-### A complete description of a Prefect Deployment for flow 'Process and segment customers'
+### A complete description of a Prefect Deployment for flow 'my-flow'
 ###
-name: customer-segmentation-gcp
+name: test-gcp
 description: null
-version: d6c9ce851678c464f0f8bbb3624340ea
+version: 583f0c3a78dd8d1c297a8e14514cd48c
 # The work queue that will handle this deployment's runs
 work_queue_name: dev
 tags: []
@@ -14,7 +14,7 @@ infra_overrides: {}
 ###
 ### DO NOT EDIT BELOW THIS LINE
 ###
-flow_name: Process and segment customers
+flow_name: my-flow
 manifest_path: null
 infrastructure:
   type: cloud-run-job
@@ -43,16 +43,9 @@ infrastructure:
   _is_anonymous: false
   block_type_slug: cloud-run-job
   _block_type_slug: cloud-run-job
-storage:
-  repository: https://github.com/khuyentran1401/dvc-demo
-  reference: null
-  _block_document_id: b93e9fe1-cfec-455a-8a62-d84f9619ca54
-  _block_document_name: dvc-demo
-  _is_anonymous: false
-  block_type_slug: github
-  _block_type_slug: github
-path: ''
-entrypoint: src/main.py:main
+storage: null
+path: /opt/prefect/flows
+entrypoint: src/test.py:my_flow
 parameter_openapi_schema:
   title: Parameters
   type: object
