@@ -43,8 +43,15 @@ infrastructure:
   _is_anonymous: false
   block_type_slug: cloud-run-job
   _block_type_slug: cloud-run-job
-storage: null
-path: /opt/prefect/flows
+storage:
+  repository: https://github.com/khuyentran1401/dvc-demo
+  reference: null
+  _block_document_id: b93e9fe1-cfec-455a-8a62-d84f9619ca54
+  _block_document_name: dvc-demo
+  _is_anonymous: false
+  block_type_slug: github
+  _block_type_slug: github
+path: ''
 entrypoint: src/test.py:my_flow
 parameter_openapi_schema:
   title: Parameters
