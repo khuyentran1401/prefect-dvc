@@ -1,8 +1,9 @@
 stages:
   process_data:
     cmd: python src/process_data.py
+    params: 
+        - config/process/process_1.yaml:
     deps:
-    - config/main.yaml
     - data/raw
     - src/main.py
     - src/process_data.py
@@ -19,7 +20,9 @@ stages:
     outs:
     - data/final:
         persist: true
-    - image:
-        persist: true
     - model/cluster.pkl:
         persist: true
+    plots:
+    - image:
+        persist: true
+ 

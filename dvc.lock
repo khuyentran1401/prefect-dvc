@@ -3,9 +3,6 @@ stages:
   process_data:
     cmd: python src/process_data.py
     deps:
-    - path: config/main.yaml
-      md5: ac9cbee475ca1646e47aef5f52a517c7
-      size: 550
     - path: data/raw
       md5: 10c3f643286f509fa7f6b4675d9efbad.dir
       size: 222379
@@ -14,8 +11,38 @@ stages:
       md5: d6c9ce851678c464f0f8bbb3624340ea
       size: 223
     - path: src/process_data.py
-      md5: 18c8c22be7b18cbb2faed5574670f19b
-      size: 3460
+      md5: fad2fed46e7940d5ad82044f075f921b
+      size: 3533
+    params:
+      config/process/process_1.yaml:
+        family_size:
+          Married: 2
+          Together: 2
+          Absurd: 1
+          Widow: 1
+          YOLO: 1
+          Divorced: 1
+          Single: 1
+          Alone: 1
+        keep_columns:
+        - Income
+        - Recency
+        - NumWebVisitsMonth
+        - AcceptedCmp3
+        - AcceptedCmp4
+        - AcceptedCmp5
+        - AcceptedCmp1
+        - AcceptedCmp2
+        - Complain
+        - Response
+        - age
+        - total_purchases
+        - enrollment_years
+        - family_size
+        name: process_1
+        remove_outliers_threshold:
+          age: 90
+          Income: 610000
     outs:
     - path: data/intermediate
       md5: 9503e800e9c4e01a93c29eafc53f63c4.dir
@@ -39,15 +66,15 @@ stages:
       size: 3266
     outs:
     - path: data/final
-      md5: 69a4612fad6e986c48cf5f25e03b8e2d.dir
+      md5: dadcdffb0e0419268d0e1500dd490f5a.dir
       size: 609138
       nfiles: 1
     - path: image
-      md5: e79be5a193dc8d656ef2878f7b796a0d.dir
-      size: 190604
+      md5: 3399c65778c503a269cc2c5651056bc1.dir
+      size: 189505
       nfiles: 2
     - path: model/cluster.pkl
-      md5: ca953c78f1ae921d766023ace3682cd8
+      md5: 9115bd12afd013cab33f238decf08249
       size: 9703
   analyze:
     cmd: python src/run_notebook.py

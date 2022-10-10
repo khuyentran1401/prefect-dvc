@@ -1,0 +1,71 @@
+{
+  "data_asset_type": null,
+  "expectation_suite_name": "marketing_campaign.csv.warning",
+  "expectations": [
+    {
+      "expectation_type": "expect_table_row_count_to_be_between",
+      "kwargs": {
+        "max_value": 2240,
+        "min_value": 2240
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_table_columns_to_match_set",
+      "kwargs": {
+        "column_set": [
+          "MntFruits",
+          "MntMeatProducts",
+          "NumCatalogPurchases",
+          "AcceptedCmp1",
+          "Recency",
+          "NumDealsPurchases",
+          "Kidhome",
+          "MntGoldProds",
+          "Income",
+          "Teenhome",
+          "Marital_Status",
+          "AcceptedCmp3",
+          "Z_CostContact",
+          "AcceptedCmp2",
+          "ID",
+          "Education",
+          "Z_Revenue",
+          "NumStorePurchases",
+          "Year_Birth",
+          "Complain",
+          "NumWebVisitsMonth",
+          "AcceptedCmp4",
+          "MntSweetProducts",
+          "MntWines",
+          "Response",
+          "MntFishProducts",
+          "Dt_Customer",
+          "AcceptedCmp5",
+          "NumWebPurchases"
+        ]
+      },
+      "meta": {}
+    }
+  ],
+  "ge_cloud_id": null,
+  "meta": {
+    "citations": [
+      {
+        "citation_date": "2022-10-10T15:58:12.464136Z",
+        "comment": "Created by effective Rule-Based Profiler of OnboardingDataAssistant with the configuration included.\n"
+      },
+      {
+        "batch_request": {
+          "data_asset_name": "marketing_campaign.csv",
+          "data_connector_name": "default_inferred_data_connector_name",
+          "datasource_name": "my_datasource",
+          "limit": 1000
+        },
+        "citation_date": "2022-10-10T15:58:45.988975Z",
+        "comment": "Created suite added via CLI"
+      }
+    ],
+    "great_expectations_version": "0.15.26"
+  }
+}

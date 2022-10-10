@@ -24,3 +24,4 @@ venv
 *.pkl
 *.ipynb
 /image
+/models

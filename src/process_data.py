@@ -1,12 +1,14 @@
 import os
 import warnings
 from datetime import date
+from pathlib import Path
 
 import pandas as pd
 from dvc.api import DVCFileSystem
 from omegaconf import DictConfig
 from prefect import flow, task
 from prefect.blocks.system import Secret
+from prefect_great_expectations import run_checkpoint_validation
 from sklearn.preprocessing import StandardScaler
 
 from helper import create_parent_directory, load_config
@@ -25,10 +27,11 @@ def add_credentials():
 
 @task
 def download_data(config: DictConfig) -> pd.DataFrame:
-    fs = DVCFileSystem(config.git.url, rev=config.git.rev)
     data_path = config.raw_data.path
-    create_parent_directory(data_path)
-    fs.get_file(data_path, data_path)
+    if not Path(data_path).exists():
+        fs = DVCFileSystem(config.git.url, rev=config.git.rev)
+        create_parent_directory(data_path)
+        fs.get_file(data_path, data_path)
 
 
 @task
@@ -113,6 +116,7 @@ def process_data():
     config = load_config()
     add_credentials()
     download_data(config)
+    run_checkpoint_validation(checkpoint_name="validate_raw")
     df = read_data(config)
     df = (
         df.pipe(drop_na)
