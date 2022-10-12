@@ -11,8 +11,8 @@ stages:
       md5: d6c9ce851678c464f0f8bbb3624340ea
       size: 223
     - path: src/process_data.py
-      md5: fad2fed46e7940d5ad82044f075f921b
-      size: 3533
+      md5: dacb19aeb4c4edbb491635f4f5f56fcd
+      size: 3663
     params:
       config/process/process_1.yaml:
         family_size:
@@ -42,11 +42,11 @@ stages:
         name: process_1
         remove_outliers_threshold:
           age: 90
-          Income: 610000
+          Income: 61000
     outs:
     - path: data/intermediate
-      md5: 9503e800e9c4e01a93c29eafc53f63c4.dir
-      size: 621318
+      md5: 0f25477a0e578344939aeaaa7c59c161.dir
+      size: 393868
       nfiles: 1
   segment:
     cmd: python src/segment.py
@@ -86,3 +86,31 @@ stages:
     - path: notebook/analyze_data.ipynb
       md5: 767ba9b856f89d6ca6602158f71624ed
       size: 63124
+  train:
+    cmd: python src/segment.py
+    deps:
+    - path: config/main.yaml
+      md5: 8f8baac0925f90835c2ea7ebf5ebc850
+      size: 549
+    - path: data/intermediate
+      md5: 0f25477a0e578344939aeaaa7c59c161.dir
+      size: 393868
+      nfiles: 1
+    - path: src/main.py
+      md5: d6c9ce851678c464f0f8bbb3624340ea
+      size: 223
+    - path: src/segment.py
+      md5: b46e8294e87e4f072cbc52d4b65ed142
+      size: 3266
+    outs:
+    - path: data/final
+      md5: 82c0b9784142023dd8328506f11b2825.dir
+      size: 386717
+      nfiles: 1
+    - path: image
+      md5: 3b865e56fa8a05bf72b6a68a1b48ec8f.dir
+      size: 171510
+      nfiles: 2
+    - path: model/cluster.pkl
+      md5: 6af4612532ea788faf8d3ef0692905f0
+      size: 6483

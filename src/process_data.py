@@ -116,7 +116,7 @@ def process_data():
     config = load_config()
     add_credentials()
     download_data(config)
-    run_checkpoint_validation(checkpoint_name="validate_raw")
+    # run_checkpoint_validation(checkpoint_name="validate_raw")
     df = read_data(config)
     df = (
         df.pipe(drop_na)

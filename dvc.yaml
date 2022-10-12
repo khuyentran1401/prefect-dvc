@@ -10,7 +10,7 @@ stages:
     outs:
     - data/intermediate:
         persist: true
-  segment:
+  train:
     cmd: python src/segment.py
     deps:
     - config/main.yaml
