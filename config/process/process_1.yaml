@@ -16,7 +16,7 @@ keep_columns:
   - family_size
 
 remove_outliers_threshold:
-  age: 90
+  age: 85
   Income: 600000
 
 family_size:

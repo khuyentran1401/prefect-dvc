@@ -25,5 +25,8 @@ jobs:
           dvc remote modify origin --local password ${{ secrets.DAGSHUB_TOKEN }}
           dvc pull -r origin 
       
-      - name: Reproduce the pipeline
+      - name: Run the pipeline
         run: dvc repro
+
+      - name: Push the outcomes to DVC remote storage 
+        run: dvc push -r origin
