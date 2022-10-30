@@ -14,9 +14,9 @@ def test_get_age():
 
 
 def test_get_total_purchases():
-    df = pd.DataFrame({"FirstPurchases": [1, 2], "SecondPurchases": [3, 4]})
+    df = pd.DataFrame({"FirstPurchases": [1, 2], "SecondPurchases": [2, 4]})
     out = get_total_purchases(df)
-    assert out["total_purchases"].tolist() == [4, 6]
+    assert out["total_purchases"].tolist() == [3, 6]
 
 
 def test_get_enrollment_years():
