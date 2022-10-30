@@ -18,6 +18,5 @@ artifacts
 .DS_Store
 venv
 *.ipynb
-/data
 /model
 /image

@@ -1,0 +1,31 @@
+name: Run code
+on:
+  push: 
+    paths:
+      - config/**
+      - src/**
+      - data/*
+  pull_request:
+    paths:
+      - config/**
+      - src/**
+      - data/*
+jobs:
+  run_code:
+    name: Run code
+    runs-on: ubuntu-latest
+    container: khuyentran1401/customer_segmentation:dvc
+    steps:
+      - name: Checkout 
+        id: checkout
+        uses: actions/checkout@v2
+
+      - name: Pull data
+        run: |
+          dvc remote modify origin --local auth basic
+          dvc remote modify origin --local user ${{ secrets.DAGSHUB_USERNAME }}
+          dvc remote modify origin --local password ${{ secrets.DAGSHUB_TOKEN }}
+          dvc pull -r origin train_model
+      
+      - name: Reproduce the pipeline
+        run: dvc repro

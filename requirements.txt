@@ -5,6 +5,4 @@ omegaconf==2.2.2
 pandas==1.4.2
 scikit_learn==1.1.2
 yellowbrick==1.5
-dvc==2.28.0
-dvc-gdrive==2.19.0
-prefect>=2.3.2
+dvc==2.29.0
