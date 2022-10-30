@@ -28,4 +28,4 @@ image:
   clusters: image/cluster.png
 
 model:
-  path: model/cluster.pkl
+  path: model/cluster1.pkl
