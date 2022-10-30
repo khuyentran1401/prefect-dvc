@@ -12,6 +12,8 @@ stages:
         persist: true
   train:
     cmd: python src/segment.py
+    params:
+        - config/main.yaml:
     deps:
     - config/main.yaml
     - data/intermediate
