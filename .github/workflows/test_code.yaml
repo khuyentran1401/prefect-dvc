@@ -30,3 +30,10 @@ jobs:
 
       - name: Push the outcomes to DVC remote storage 
         run: dvc push -r origin
+      
+      - name: Commit changes in dvc.lock
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Commit changes in dvc.lock
+          branch: dvc-pipeline
+          file_pattern: dvc.lock
