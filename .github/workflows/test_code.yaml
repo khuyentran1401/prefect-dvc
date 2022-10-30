@@ -1,11 +1,8 @@
 name: Run code
 on:
   push: 
-    paths:
-      - config/**
-      - src/**
-      - data/*
-  pull_request:
+    branches:
+     - dvc-pipeline
     paths:
       - config/**
       - src/**
