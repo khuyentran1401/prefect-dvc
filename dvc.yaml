@@ -8,14 +8,12 @@ stages:
     - src/main.py
     - src/process_data.py
     outs:
-    - data/intermediate:
-        persist: true
+    - data/intermediate
   train:
     cmd: python src/segment.py
     params:
         - config/main.yaml:
     deps:
-    - config/main.yaml
     - data/intermediate
     - src/main.py
     - src/segment.py
