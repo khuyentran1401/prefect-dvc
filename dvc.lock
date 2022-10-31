@@ -51,6 +51,9 @@ stages:
   train:
     cmd: python src/segment.py
     deps:
+    - path: config/main.yaml
+      md5: 99754803ffb5213b230dd88bd1a6b449
+      size: 461
     - path: data/intermediate
       md5: 9503e800e9c4e01a93c29eafc53f63c4.dir
       size: 621318
@@ -88,12 +91,12 @@ stages:
           path: data/raw/marketing_campaign.csv
     outs:
     - path: data/final
-      md5: 832d6201268e07389613763f4b953ac6.dir
+      md5: 9a4af39ed4fd5f5e050594891c1ea5cb.dir
       size: 609138
       nfiles: 1
     - path: image
-      md5: d98fa6b016a272e35937a9c2e21e9925.dir
-      size: 186578
+      md5: bc6e700972567dfe96efd760e102a253.dir
+      size: 183615
       nfiles: 2
     - path: model/cluster.pkl
       md5: 8340026b67c7c5f572cdf5ce16fc40ac
