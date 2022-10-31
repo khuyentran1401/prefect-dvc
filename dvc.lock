@@ -7,9 +7,6 @@ stages:
       md5: 10c3f643286f509fa7f6b4675d9efbad.dir
       size: 222379
       nfiles: 1
-    - path: src/main.py
-      md5: d6c9ce851678c464f0f8bbb3624340ea
-      size: 223
     - path: src/process_data.py
       md5: 226c85778c491537192725b557f070cf
       size: 2763
@@ -41,7 +38,7 @@ stages:
         - family_size
         name: process_1
         remove_outliers_threshold:
-          age: 85
+          age: 84
           Income: 600000
     outs:
     - path: data/intermediate
@@ -51,19 +48,13 @@ stages:
   train:
     cmd: python src/segment.py
     deps:
-    - path: config/main.yaml
-      md5: 99754803ffb5213b230dd88bd1a6b449
-      size: 461
     - path: data/intermediate
       md5: 9503e800e9c4e01a93c29eafc53f63c4.dir
       size: 621318
       nfiles: 1
-    - path: src/main.py
-      md5: d6c9ce851678c464f0f8bbb3624340ea
-      size: 223
     - path: src/segment.py
-      md5: b46e8294e87e4f072cbc52d4b65ed142
-      size: 3266
+      md5: 4fc9d80cbf4a758102ca23136c467563
+      size: 3265
     params:
       config/main.yaml:
         defaults:
@@ -86,18 +77,18 @@ stages:
           name: scale_features.csv
           path: ${intermediate.dir}/${intermediate.name}
         model:
-          path: model/cluster1.pkl
+          path: model/cluster.pkl
         raw_data:
           path: data/raw/marketing_campaign.csv
     outs:
     - path: data/final
-      md5: 9a4af39ed4fd5f5e050594891c1ea5cb.dir
+      md5: a8b415a278cf2fb2b89525efcff76717.dir
       size: 609138
       nfiles: 1
     - path: image
-      md5: bc6e700972567dfe96efd760e102a253.dir
-      size: 183615
+      md5: 2921044f1ec9ab91d023c47974065a4c.dir
+      size: 186534
       nfiles: 2
     - path: model/cluster.pkl
-      md5: 8340026b67c7c5f572cdf5ce16fc40ac
+      md5: 70f2f56e4fbfea58db26a255a803620c
       size: 9703

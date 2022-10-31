@@ -5,7 +5,6 @@ stages:
         - config/process/process_1.yaml:
     deps:
     - data/raw
-    - src/main.py
     - src/process_data.py
     outs:
     - data/intermediate
@@ -15,14 +14,9 @@ stages:
         - config/main.yaml:
     deps:
     - data/intermediate
-    - src/main.py
     - src/segment.py
     outs:
-    - data/final:
-        persist: true
-    - model/cluster.pkl:
-        persist: true
+    - data/final
+    - model/cluster.pkl
     plots:
-    - image:
-        persist: true
- 
+    - image
