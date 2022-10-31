@@ -7,7 +7,7 @@ on:
       - config/**
       - src/**
       - data/*
-      - .github/workflows/test_code.yaml
+      - .github/workflows/run_pipeline.yaml
 jobs:
   run_code:
     name: Run code
