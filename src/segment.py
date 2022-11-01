@@ -126,11 +126,11 @@ def segment() -> None:
     projections = get_3d_projection(pca_df)
     k_best = get_best_k_cluster(pca_df, config)
     model = get_clusters_model(pca_df, k_best)
-    predictions = predict(model, pca_df)
-    data = insert_clusters_to_df(data, predictions)
+    pred = predict(model, pca_df)
+    data = insert_clusters_to_df(data, pred)
     plot_clusters(
         pca_df,
-        predictions,
+        pred,
         projections,
         config,
     )
