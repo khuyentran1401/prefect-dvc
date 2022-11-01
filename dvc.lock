@@ -53,8 +53,8 @@ stages:
       size: 621318
       nfiles: 1
     - path: src/segment.py
-      md5: 2bbd25f7a99a092eb11eacca59db26b7
-      size: 3284
+      md5: da1f7222a374e4a16b3e4ada84ae1178
+      size: 3283
     params:
       config/main.yaml:
         defaults:
@@ -82,13 +82,13 @@ stages:
           path: data/raw/marketing_campaign.csv
     outs:
     - path: data/final
-      md5: 3532b5e835457162c43ec17914e7bbff.dir
+      md5: 1d471f34786f18b230d7df7f3a4fc19c.dir
       size: 609138
       nfiles: 1
     - path: image
-      md5: 2a3575584a75b340149f548a86a1f985.dir
-      size: 187741
+      md5: f050b8ae37c9e00ba85af96e52cddbaa.dir
+      size: 184072
       nfiles: 2
     - path: model/cluster.pkl
-      md5: 2dfa0487f6b96b53d97479cdac426b0b
+      md5: d7778b7e765837c98172e4c660f3463d
       size: 9703
